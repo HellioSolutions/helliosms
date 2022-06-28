@@ -65,6 +65,15 @@ $result = HellioMessaging::otp('233242813656', 'HellioSMS', '##OTP## is your OTP
 
 $result = HellioMessaging::verify('233242813656', 1290); // returns true or false
 ```
+##Email Validation
+- Validate email addresses to check if they're correct and can recieve emails.
+```php
+<?php
+
+$result = HellioMessaging::emailvalidator('someemail@domain.com', 'Marketing leads'); 
+
+$result = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@domain.com'], 'Marketing leads'); 
+```
 
 ## Notification
 Include `helliomessaging` in your notification's channels:
@@ -124,7 +133,7 @@ Notification::route('helliomessaging', '233242813656')
     ->notify(new App\Notifications\HellioMessagingTestNotification());
 ```
 
-## Validator
+## OTP Validator
 You can validate sent OTPs using provided validation rule named `helliomessaging_otp` as shown below:
 ```php
 <?php
