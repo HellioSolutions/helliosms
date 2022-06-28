@@ -14,6 +14,8 @@ class Client
     public const HELLIO_MESSAGING_OTP_ENDPOINT = 'https://api.helliomessaging.com/channels/2fa/v3/request';
     public const HELLIO_MESSAGING_OTP_VERIFICATION_ENDPOINT = 'https://api.helliomessaging.com/channels/2fa/v3/verify';
     public const HELLIO_MESSAGING_SMS_ENDPOINT = 'https://api.helliomessaging.com/channels/sms/v3/send';
+    public const HELLIO_MESSAGING_BALANCE_ENDPOINT = 'https://api.helliomessaging.com/account/v3/balance';
+    public const HELLIO_MESSAGING_EMAIL_VALIDATOR_ENDPOINT = 'https://api.helliomessaging.com/channels/email/v3/validator';
 
     /**
      * @var Guzzle
@@ -73,7 +75,7 @@ class Client
     public function balance(): bool
     {
         $guzzle = version_compare(Guzzle::VERSION, '7.2') >= 0;
-        $response = $this->http->post(self::HELLIO_MESSAGING_OTP_ENDPOINT, [$guzzle ? 'form_params' : 'body' => ['client_id' => $this->client_id, 'application_secret' => $this->application_secret]]);
+        $response = $this->http->post(self::HELLIO_MESSAGING_BALANCE_ENDPOINT, [$guzzle ? 'form_params' : 'body' => ['client_id' => $this->client_id, 'application_secret' => $this->application_secret]]);
         if ($response->getStatusCode() === 200) {
             $body = json_decode((string)$response->getBody(), true);
             return isset($body['type']) && ($body['type'] === 'success');
@@ -81,19 +83,37 @@ class Client
         return 0;
     }
 
+
     /**
-     * @param string|array|null $mobile_number
+     * @param array|null $email
+     * @param string|null $label
+     * @return bool
+     */
+
+    public function emailvalidator(?array $email,  string $label = null): bool
+    {
+        $guzzle = version_compare(Guzzle::VERSION, '7.2') >= 0;
+        $response = $this->http->post(self::HELLIO_MESSAGING_EMAIL_VALIDATOR_ENDPOINT, [$guzzle ? 'form_params' : 'body' => ['client_id' => $this->client_id, 'application_secret' => $this->application_secret, 'email' => $email, 'label' => $label,]]);
+        if ($response->getStatusCode() === 200) {
+            $body = json_decode((string)$response->getBody(), true);
+            return isset($body['type']) && ($body['type'] === 'success');
+        }
+        return false;
+    }
+
+    /**
+     * @param array|null $mobile_number
      * @param string|array $message
      * @param string|null $sender_id
      * @param string|null $message_type
-     * @throws GuzzleException
+     * @return false|mixed
      */
-    public function sms($mobile_number, $message, string $sender_id = null, string $message_type = null)
+    public function sms(?array $mobile_number, $message, string $sender_id = null, string $message_type = null)
     {
         if (is_string($message)) {
-            $message = [['message' => $message, 'message_type' => $message_type, 'mobile_number' => (array)$mobile_number,]];
+            $message = ['message' => $message, 'message_type' => $message_type, 'mobile_number' => (array)$mobile_number];
         }
-        $response = $this->http->post(self::HELLIO_MESSAGING_SMS_ENDPOINT, ['headers' => ['client_id' => $this->client_id, 'application_secret' => $this->application_secret], 'json' => ['sender_id' => $sender_id ?? env('helliomessaging.default_sender'), 'message' => $message,],]);
+        $response = $this->http->post(self::HELLIO_MESSAGING_SMS_ENDPOINT, ['headers' => ['client_id' => $this->client_id, 'application_secret' => $this->application_secret], 'json' => ['sender_id' => $sender_id ?? env('helliomessaging.default_sender'), 'message' => $message]]);
         if ($response->getStatusCode() === 200) {
             $body = json_decode((string)$response->getBody(), true);
             return isset($body['type']) && ($body['type'] === 'success') ? $body['message'] : false;
