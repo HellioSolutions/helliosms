@@ -39,7 +39,7 @@
     "ext-json": "*"
   },
   "require-dev": {
-    "orchestra/testbench": "^6.4|^7.0",
-    "phpunit/phpunit": "^9.5.1"
+    "orchestra/testbench": "^6.4|^v7.5.0",
+    "phpunit/phpunit": "^9.5.21"
   }
 }
