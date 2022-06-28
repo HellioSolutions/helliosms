@@ -1,14 +1,14 @@
-# Laravel Hellio Messaging - Hellio Messaging Integration For Laravel
+# Hellio Messaging CaaS API Integration For Laravel
 
 ### About
-This package integrates [Hellio Messaging](https://helliomessaging.com)'s SMS solution nicely with [Laravel](https://laravel.com/) 5+ adding support for **Notification** & **Validator** as well.
+Official Laravel package that integrates with [Hellio Messaging](https://helliomessaging.com)Hellio Messaging's SMS fleets of APIs nicely with [Laravel](https://laravel.com/) 5+ adding support for **SMS**, **Notification**, **Voice SMS**, **OTP Codes**, **OTP Verification**, **Email Validator Service** &  **Laravel Validator** as well.
 
 ### Registration
 [Sign up](https://app.helliomessaging.com/try-hellio) for Hellio Messaging and get the auth key from your account. You can find the `client_id` and `application_secret` from `Profile Settings > API Keys & Webhooks` key after signing in.
 
 ### Installation
 ```bash
-composer require VimKanzoGH/laravel-helliomessaging
+composer require helliosolutions/helliosms
 ```
 
 #### Laravel < 5.5
@@ -95,11 +95,11 @@ Define the `toHellioMessaging` method:
 ```php
 <?php
 
-use HellioSolutions\HellioMessaging\Message\HellioMessagingSMS;
+use HellioSolutions\HellioMessaging\Message\HellioSMS;
 
 public function toHellioMessaging()
 {
-    return (new HellioMessagingSMS)
+    return (new HellioSMS)
         ->message(__('This is just a test message.'))
 	    ->sender_id('HellioSMS') // [Optional] - Will pick default sender ID from HELLIO_MESSAGING_DEFAULT_SENDER or if not set, will use the application name.
         ->to('233242813656');

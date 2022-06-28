@@ -1,5 +1,5 @@
 {
-  "name": "vimkanzogh/laravel-hellio",
+  "name": "helliosolutions/helliosms",
   "description": "Laravel integration for the Hellio Messaging array of services.",
   "type": "library",
   "keywords": ["laravel", "hellio messaging", "integration", "sms", "otp", "notification", "channel", "voice sms"],

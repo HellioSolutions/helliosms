@@ -3,7 +3,7 @@
 namespace HellioSolutions\HellioMessaging\Channels;
 
 use Illuminate\Notifications\Notification;
-use HellioSolutions\HellioMessaging\Message\HellioMessagingSMS;
+use HellioSolutions\HellioMessaging\Message\HellioSMS;
 use HellioSolutions\HellioMessaging\Client;
 
 /**
@@ -39,7 +39,7 @@ class HellioMessagingChannel
         if (empty($mobile_number)) {
             return;
         }
-        /** @var HellioMessagingSMS $message */
+        /** @var HellioSMS $message */
         $message = $notification->toHellioMessaging($notifiable);
         $this->client->sms($mobile_number, $message->message, $message->sender_id, $message->message_type);
     }
