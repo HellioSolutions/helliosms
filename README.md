@@ -38,6 +38,7 @@ $ php artisan vendor:publish --provider="HellioSolutions\HellioMessaging\HellioS
 
 ## Basic
 - Send an SMS to one or more mobile numbers.
+
 ```php
 <?php
 
