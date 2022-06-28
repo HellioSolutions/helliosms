@@ -72,7 +72,7 @@ $result = HellioMessaging::verify('233242813656', 1290); // returns true or fals
 
 $result = HellioMessaging::emailvalidator('someemail@domain.com', 'Marketing leads'); 
 
-$result = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@domain.com'], 'Marketing leads'); 
+$result = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@domain.com'], 'Marketing leads'); // Validate multiple emails at once
 ```
 
 ## Hellio Account Balance
