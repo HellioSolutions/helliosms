@@ -1,6 +1,6 @@
 <?php
 
-namespace HellioSolutions\HellioMessaging;
+namespace HellioSolutions\HellioMessaging\Facades;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 

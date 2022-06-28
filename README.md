@@ -15,13 +15,13 @@ composer require helliosolutions/helliosms
 Once the package is installed, open your `app/config/app.php` configuration file and locate the `providers` key. Add the following line to the end:
 
 ```php
-HellioSolutions\HellioMessaging\HellioSolutionsServiceProvider::class
+\HellioSolutions\HellioMessaging\Providers\HellioSolutionsServiceProvider::class
 ```
 
 Next, locate the `aliases` key and add the following line:
 
 ```php
-'HellioMessaging' => HellioSolutions\HellioMessaging\Facade::class,
+'HellioMessaging' => \HellioSolutions\HellioMessaging\Facades\Facade::class,
 ```
 
 ### Configuration

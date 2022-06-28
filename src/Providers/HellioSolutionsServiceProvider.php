@@ -1,12 +1,17 @@
 <?php
 
-namespace HellioSolutions\HellioMessaging;
+namespace HellioSolutions\HellioMessaging\Providers;
 
+use HellioSolutions\HellioMessaging\Channels;
+use HellioSolutions\HellioMessaging\Client;
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use function HellioSolutions\HellioMessaging\app;
+use function HellioSolutions\HellioMessaging\config_path;
+use function HellioSolutions\HellioMessaging\env;
 
 /**
  * Class HellioSolutionsServiceProvider
