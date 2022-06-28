@@ -65,7 +65,7 @@ $result = HellioMessaging::otp('233242813656', 'HellioSMS', '##OTP## is your OTP
 
 $result = HellioMessaging::verify('233242813656', 1290); // returns true or false
 ```
-##Email Validation
+## Email Validation
 - Validate email addresses to check if they're correct and can recieve emails.
 ```php
 <?php
@@ -74,6 +74,15 @@ $result = HellioMessaging::emailvalidator('someemail@domain.com', 'Marketing lea
 
 $result = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@domain.com'], 'Marketing leads'); 
 ```
+
+## Hellio Account Balance
+- Check your Hellio Messaging account balance with ease.
+```php
+<?php
+
+$result = HellioMessaging::balance();
+```
+
 
 ## Notification
 Include `helliomessaging` in your notification's channels:
