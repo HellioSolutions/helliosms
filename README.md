@@ -31,22 +31,18 @@ Put the credentials and preferences in ENV with the keys `HELLIO_MESSAGING_CLIEN
 $ php artisan vendor:publish --provider="HellioSolutions\HellioMessaging\HellioSolutionsServiceProvider" --tag=config
 ```
 
+## Usage:
 
-```
-
-### Usage
-
-## Basic
+### Basic
 - Send an SMS to one or more mobile numbers.
 
 ```php
 <?php
+$response = HellioMessaging::sms('233242813656', 'Hello there!');
 
-$result = HellioMessaging::sms('233242813656', 'Hello there!');
- 
-$result = HellioMessaging::sms('233242813656', 'Hello there!', 'HellioSMS');
- 
-$result = HellioMessaging::sms(null, [
+$response = HellioMessaging::sms('233242813656', 'Hello there!', 'HellioSMS');
+
+$response = HellioMessaging::sms(null, [
     ['mobile_number' => ['233242813656', '233591451609'], 'message' => 'Hello there!'],
     ['mobile_number' => ['233203555816'], 'message' => 'Come here!'],
 ], 'HellioSMS');
@@ -56,27 +52,27 @@ $result = HellioMessaging::sms(null, [
 ```php
 <?php
 
-$result = HellioMessaging::otp('233242813656');
+$response = HellioMessaging::otp('233242813656');
    
-$result = HellioMessaging::otp('233242813656', 'HellioSMS');
+$response = HellioMessaging::otp('233242813656', 'HellioSMS');
    
-$result = HellioMessaging::otp('233242813656', 'HellioSMS', '##OTP## is your OTP, Please dont share it with anyone.');
+$response = HellioMessaging::otp('233242813656', 'HellioSMS', '##OTP## is your OTP, Please dont share it with anyone.');
 ```
 
 - Verify OTP sent to a mobile number.
 ```php
 <?php
 
-$result = HellioMessaging::verify('233242813656', 1290); // returns true or false
+$response = HellioMessaging::verify('233242813656', 1290); // returns true or false
 ```
 ## Email Validation
 - Validate email addresses to check if they're correct and can recieve emails.
 ```php
 <?php
 
-$result = HellioMessaging::emailvalidator('someemail@domain.com', 'Marketing leads'); 
+$response = HellioMessaging::emailvalidator('someemail@domain.com', 'Marketing leads'); 
 
-$result = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@domain.com'], 'Marketing leads'); // Validate multiple emails at once
+$response = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@domain.com'], 'Marketing leads'); // Validate multiple emails at once
 ```
 
 ## Hellio Account Balance
@@ -84,7 +80,7 @@ $result = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@doma
 ```php
 <?php
 
-$result = HellioMessaging::balance();
+$response = HellioMessaging::balance();
 ```
 
 
