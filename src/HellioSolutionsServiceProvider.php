@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 /**
- * Class ServiceProvider
+ * Class HellioSolutionsServiceProvider
  * @package HellioSolutions\HellioMessaging
  */
-class ServiceProvider extends LaravelServiceProvider
+class HellioSolutionsServiceProvider extends LaravelServiceProvider
 {
     /**
      * Register services.

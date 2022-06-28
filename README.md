@@ -15,7 +15,7 @@ composer require helliosolutions/helliosms
 Once the package is installed, open your `app/config/app.php` configuration file and locate the `providers` key. Add the following line to the end:
 
 ```php
-HellioSolutions\HellioMessaging\ServiceProvider::class
+HellioSolutions\HellioMessaging\HellioSolutionsServiceProvider::class
 ```
 
 Next, locate the `aliases` key and add the following line:
@@ -28,7 +28,10 @@ Next, locate the `aliases` key and add the following line:
 Put the credentials and preferences in ENV with the keys `HELLIO_MESSAGING_CLIENT_ID`, `HELLIO_MESSAGING_APPLICATION_SECRET`, `HELLIO_MESSAGING_DEFAULT_SENDER`. If you want to customize this, publish the default configuration which will create a config file `config/helliomessaging.php`.
 
 ```bash
-$ php artisan vendor:publish
+$ php artisan vendor:publish --provider="HellioSolutions\HellioMessaging\HellioSolutionsServiceProvider" --tag=config
+```
+
+
 ```
 
 ### Usage
