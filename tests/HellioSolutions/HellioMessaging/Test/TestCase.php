@@ -5,14 +5,11 @@ use Mockery;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
-    public function tearDown(): void
+    public function setUp(): void
     {
-        parent::tearDown();
-
-        if ($container = \Mockery::getContainer()) {
-            $this->addToAssertionCount($container->mockery_getExpectationCount());
-        }
-
-        Mockery::close();
+        parent::setUp();
+        $this->hellioMessaging = Mockery::mock(Client::class);
+        $this->channel = new HellioMessagingChannel($this->hellioMessaging);
     }
+
 }
