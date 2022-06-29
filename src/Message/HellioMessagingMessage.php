@@ -6,7 +6,7 @@ namespace HellioSolutions\HellioMessaging\Message;
  * Class HellioMessagingSMS
  * @package HellioSolutions\HellioMessaging\Message
  */
-class HellioSMS
+class HellioMessagingMessage
 {
     /**
      * @var string
@@ -27,7 +27,7 @@ class HellioSMS
      * @param string $message
      * @return $this
      */
-    public function message(string $message): HellioSMS
+    public function message(string $message): HellioMessagingMessage
     {
         $this->message = $message;
         return $this;
@@ -37,7 +37,7 @@ class HellioSMS
      * @param string $message_type
      * @return $this
      */
-    public function message_type(string $message_type): HellioSMS
+    public function message_type(string $message_type): HellioMessagingMessage
     {
         $this->message_type = $message_type;
         return $this;
@@ -48,7 +48,7 @@ class HellioSMS
      * @param string $sender_id
      * @return $this
      */
-    public function sender_id(string $sender_id): HellioSMS
+    public function sender_id(string $sender_id): HellioMessagingMessage
     {
         $this->sender_id = $sender_id;
         return $this;

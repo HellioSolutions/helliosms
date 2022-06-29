@@ -40,12 +40,12 @@ $ php artisan vendor:publish --provider="HellioSolutions\HellioMessaging\HellioS
 <?php
 $response = HellioMessaging::sms('233242813656', 'Hello there!');
 
-$response = HellioMessaging::sms('233242813656', 'Hello there!', 'HellioSMS');
+$response = HellioMessaging::sms('233242813656', 'Hello there!', 'HellioMessagingMessage');
 
 $response = HellioMessaging::sms(null, [
     ['mobile_number' => ['233242813656', '233591451609'], 'message' => 'Hello there!'],
     ['mobile_number' => ['233203555816'], 'message' => 'Come here!'],
-], 'HellioSMS');
+], 'HellioMessagingMessage');
 ```
 
 - Send OTP to a mobile number.
@@ -54,9 +54,9 @@ $response = HellioMessaging::sms(null, [
 
 $response = HellioMessaging::otp('233242813656');
    
-$response = HellioMessaging::otp('233242813656', 'HellioSMS');
+$response = HellioMessaging::otp('233242813656', 'HellioMessagingMessage');
    
-$response = HellioMessaging::otp('233242813656', 'HellioSMS', '##OTP## is your OTP, Please dont share it with anyone.');
+$response = HellioMessaging::otp('233242813656', 'HellioMessagingMessage', '##OTP## is your OTP, Please dont share it with anyone.');
 ```
 
 - Verify OTP sent to a mobile number.
@@ -104,13 +104,13 @@ Define the `toHellioMessaging` method:
 ```php
 <?php
 
-use HellioSolutions\HellioMessaging\Message\HellioSMS;
+use HellioSolutions\HellioMessaging\Message\HellioMessagingMessage;
 
 public function toHellioMessaging()
 {
-    return (new HellioSMS)
+    return (new HellioMessagingMessage)
         ->message(__('This is just a test message.'))
-	    ->sender_id('HellioSMS') // [Optional] - Will pick default sender ID from HELLIO_MESSAGING_DEFAULT_SENDER or if not set, will use the application name.
+	    ->sender_id('HellioMessagingMessage') // [Optional] - Will pick default sender ID from HELLIO_MESSAGING_DEFAULT_SENDER or if not set, will use the application name.
         ->to('233242813656');
 }
 ```
