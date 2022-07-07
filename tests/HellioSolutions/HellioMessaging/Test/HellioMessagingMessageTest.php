@@ -1,16 +1,19 @@
 <?php
 
 namespace HellioSolutions\HellioMessaging\Test;
+
 use HellioSolutions\HellioMessaging\HellioMessagingMessage;
-class HellioMessagingMessageTest  extends TestCase
+
+class HellioMessagingMessageTest extends TestCase
 {
     /** @var HellioMessagingMessage */
     protected $message;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->message = new HellioMessagingMessage();
+
     }
 
     /** @test */

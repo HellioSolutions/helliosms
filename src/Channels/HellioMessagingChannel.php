@@ -2,9 +2,10 @@
 
 namespace HellioSolutions\HellioMessaging\Channels;
 
-use Illuminate\Notifications\Notification;
-use HellioSolutions\HellioMessaging\Message\HellioMessagingMessage;
+use GuzzleHttp\Exception\GuzzleException;
 use HellioSolutions\HellioMessaging\Client;
+use HellioSolutions\HellioMessaging\Message\HellioMessagingMessage;
+use Illuminate\Notifications\Notification;
 
 /**
  * Class HellioMessagingChannel
@@ -32,8 +33,9 @@ class HellioMessagingChannel
      * @param mixed $notifiable
      * @param Notification $notification
      * @return void
+     * @throws GuzzleException
      */
-    public function send($notifiable, Notification $notification): void
+    public function send($notifiable, Notification $notification)
     {
         $mobile_number = $notifiable->routeNotificationFor('helliomessaging', $notification);
         if (empty($mobile_number)) {

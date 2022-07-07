@@ -1,4 +1,5 @@
 <?php
+
 namespace HellioSolutions\HellioMessaging\Test;
 
 use Mockery;

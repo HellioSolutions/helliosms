@@ -1,45 +1,54 @@
 {
-  "name": "helliosolutions/helliosms",
-  "description": "Laravel integration for the Hellio Messaging array of services.",
-  "type": "library",
-  "keywords": ["laravel", "hellio messaging", "integration", "sms", "otp", "notification", "channel", "voice sms"],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Albert ninyeh",
-      "email": "eaglesecurity0@gmail.com",
-      "homepage": "https://github.com/VimKanzoGH"
+    "name": "helliosolutions/helliosms",
+    "description": "Laravel integration for the Hellio Messaging array of services.",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "hellio messaging",
+        "integration",
+        "sms",
+        "otp",
+        "notification",
+        "channel",
+        "voice sms"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Albert ninyeh",
+            "email": "eaglesecurity0@gmail.com",
+            "homepage": "https://github.com/VimKanzoGH"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "HellioSolutions\\HellioMessaging\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HellioSolutionsServiceProvider"
+            ],
+            "aliases": {
+                "HellioMessaging": "HellioSolutions\\HellioMessaging\\Facade"
+            }
+        }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.0|^7.3|^8.0|^8.1",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.2",
+        "illuminate/notifications": "5.*|^6.0|^7.0|^8.0|^9.0",
+        "illuminate/support": "5.*|^6.0|^7.0|^8.0|^9.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.4|^v7.5.0",
+        "phpunit/phpunit": "^9.5.21"
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "HellioSolutions\\HellioMessaging\\": "src/"
-    }
-  },
-  "config": {
-    "sort-packages": true
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "HellioSolutionsServiceProvider"
-      ],
-      "aliases": {
-        "HellioMessaging": "HellioSolutions\\HellioMessaging\\Facade"
-      }
-    }
-  },
-  "prefer-stable": true,
-  "minimum-stability": "dev",
-  "require": {
-    "php": "^7.0|^7.3|^8.0|^8.1",
-    "ext-json": "*",
-    "guzzlehttp/guzzle": "^7.2",
-    "illuminate/notifications": "5.*|^6.0|^7.0|^8.0|^9.0",
-    "illuminate/support": "5.*|^6.0|^7.0|^8.0|^9.0"
-  },
-  "require-dev": {
-    "orchestra/testbench": "^6.4|^v7.5.0",
-    "phpunit/phpunit": "^9.5.21"
-  }
 }

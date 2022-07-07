@@ -4,7 +4,6 @@ namespace HellioSolutions\HellioMessaging\Providers;
 
 use HellioSolutions\HellioMessaging\Channels;
 use HellioSolutions\HellioMessaging\Client;
-use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
@@ -24,9 +23,9 @@ class HellioSolutionsServiceProvider extends LaravelServiceProvider
      *
      * @return void
      */
-    public function register(): void
+    public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/helliomessaging.php', 'helliomessaging');
+        $this->mergeConfigFrom(__DIR__ . '/../config/helliomessaging.php', 'helliomessaging');
         $this->app->bind(Client::class, function () {
             return new Client(env('helliomessaging.client_id'), env('helliomessaging.application_secret'));
         });
@@ -41,10 +40,10 @@ class HellioSolutionsServiceProvider extends LaravelServiceProvider
      *
      * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/helliomessaging.php' => config_path('helliomessaging.php'),
+            __DIR__ . '/../config/helliomessaging.php' => config_path('helliomessaging.php'),
         ], 'helliomessaging');
 
         Validator::extend('helliomessaging_otp', function ($attribute, $value, $parameters, $validator) {
