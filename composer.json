@@ -22,7 +22,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "HellioSolutions\\HellioMessaging\\": "src/"
+            "Hellio\\HellioMessaging\\": "src/"
         }
     },
     "config": {
@@ -34,7 +34,7 @@
                 "HellioSolutionsServiceProvider"
             ],
             "aliases": {
-                "HellioMessaging": "HellioSolutions\\HellioMessaging\\Facade"
+                "HellioMessaging": "Hellio\\HellioMessaging\\Facade"
             }
         }
     },

@@ -1,8 +1,8 @@
 <?php
 
-namespace HellioSolutions\HellioMessaging\Test;
+namespace Hellio\HellioMessaging\Test;
 
-use HellioSolutions\HellioMessaging\HellioMessagingMessage;
+use Hellio\HellioMessaging\HellioMessagingMessage;
 
 class HellioMessagingMessageTest extends TestCase
 {

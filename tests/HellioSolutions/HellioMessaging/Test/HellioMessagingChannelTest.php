@@ -1,10 +1,10 @@
 <?php
 
-namespace HellioSolutions\HellioMessaging\Test;
+namespace Hellio\HellioMessaging\Test;
 
-use HellioSolutions\HellioMessaging\Exceptions\CouldNotSendNotification;
-use HellioSolutions\HellioMessaging\HellioMessagingChannel;
-use HellioSolutions\HellioMessaging\HellioMessagingMessage;
+use Hellio\HellioMessaging\Exceptions\CouldNotSendNotification;
+use Hellio\HellioMessaging\HellioMessagingChannel;
+use Hellio\HellioMessaging\HellioMessagingMessage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Mockery;

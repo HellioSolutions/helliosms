@@ -1,10 +1,10 @@
 <?php
 
-namespace HellioSolutions\HellioMessaging\Message;
+namespace Hellio\HellioMessaging\Message;
 
 /**
  * Class HellioMessagingSMS
- * @package HellioSolutions\HellioMessaging\Message
+ * @package Hellio\HellioMessaging\Message
  */
 class HellioMessagingMessage
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace HellioSolutions\HellioMessaging\Channels;
+namespace Hellio\HellioMessaging\Channels;
 
 use GuzzleHttp\Exception\GuzzleException;
-use HellioSolutions\HellioMessaging\Client;
-use HellioSolutions\HellioMessaging\Message\HellioMessagingMessage;
+use Hellio\HellioMessaging\Client;
+use Hellio\HellioMessaging\Message\HellioMessagingMessage;
 use Illuminate\Notifications\Notification;
 
 /**
  * Class HellioMessagingChannel
- * @package HellioSolutions\HellioMessaging\Channels
+ * @package Hellio\HellioMessaging\Channels
  */
 class HellioMessagingChannel
 {

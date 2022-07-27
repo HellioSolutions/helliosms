@@ -1,13 +1,13 @@
 <?php
 
-namespace HellioSolutions\HellioMessaging;
+namespace Hellio\HellioMessaging;
 
 use GuzzleHttp\Client as Guzzle;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class Client
- * @package HellioSolutions\HellioMessaging
+ * @package Hellio\HellioMessaging
  */
 class Client
 {

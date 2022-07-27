@@ -3,7 +3,7 @@
 ### About
 
 Official Laravel package that integrates with [Hellio Messaging](https://helliomessaging.com)'s fleets of APIs nicely
-with [Laravel](https://laravel.com/) 5+ adding support for **SMS**, **Notification**, **Voice SMS**, **OTP Codes**, **OTP Verification**, **Email Validator Service** &  **Laravel Validator** as well.
+with [Laravel](https://laravel.com/) 5+ adding support for **SMS**, **Notification**, **Voice SMS**, **OTP Codes**, **OTP Verification**, **Email Validator Service** & **Laravel Validator** as well.
 
 ### Registration
 
@@ -22,13 +22,13 @@ Once the package is installed, open your `app/config/app.php` configuration file
 following line to the end:
 
 ```php
-\HellioSolutions\HellioMessaging\Providers\HellioSolutionsServiceProvider::class
+\Hellio\HellioMessaging\Providers\HellioSolutionsServiceProvider::class
 ```
 
 Next, locate the `aliases` key and add the following line:
 
 ```php
-'HellioMessaging' => \HellioSolutions\HellioMessaging\Facades\Facade::class,
+'HellioMessaging' => \Hellio\HellioMessaging\Facades\Facade::class,
 ```
 
 ### Configuration
@@ -38,14 +38,14 @@ Put the credentials and preferences in ENV with the keys `HELLIO_MESSAGING_CLIEN
 default configuration which will create a config file `config/helliomessaging.php`.
 
 ```bash
-$ php artisan vendor:publish --provider="HellioSolutions\HellioMessaging\HellioSolutionsServiceProvider" --tag=config
+$ php artisan vendor:publish --provider="Hellio\HellioMessaging\HellioSolutionsServiceProvider" --tag=config
 ```
 
 ## Usage:
 
 ### Basic
 
-- Send an SMS to one or more mobile numbers.
+-   Send an SMS to one or more mobile numbers.
 
 ```php
 <?php
@@ -59,19 +59,19 @@ $response = HellioMessaging::sms(null, [
 ], 'HellioSMS');
 ```
 
-- Send OTP to a mobile number.
+-   Send OTP to a mobile number.
 
 ```php
 <?php
 
 $response = HellioMessaging::otp('233242813656');
-   
+
 $response = HellioMessaging::otp('233242813656', 'HellioSMS', '4', '10');
-   
+
 $response = HellioMessaging::otp('233242813656', 'HellioSMS', '4', '10', '##OTP## is your OTP, Please dont share it with anyone.');
 ```
 
-- Verify OTP sent to a mobile number.
+-   Verify OTP sent to a mobile number.
 
 ```php
 <?php
@@ -97,19 +97,19 @@ $response = HellioMessaging::verify('233242813656', 1290); // returns true or fa
 
 ## Email Validation
 
-- Validate email addresses to check if they're correct and can recieve emails.
+-   Validate email addresses to check if they're correct and can recieve emails.
 
 ```php
 <?php
 
-$response = HellioMessaging::emailvalidator('someemail@domain.com', 'Marketing leads'); 
+$response = HellioMessaging::emailvalidator('someemail@domain.com', 'Marketing leads');
 
 $response = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@domain.com'], 'Marketing leads'); // Validate multiple emails at once
 ```
 
 ## Hellio Account Balance
 
-- Check your Hellio Messaging account balance with ease.
+-   Check your Hellio Messaging account balance with ease.
 
 ```php
 <?php
@@ -139,7 +139,7 @@ Define the `toHellioMessaging` method:
 ```php
 <?php
 
-use HellioSolutions\HellioMessaging\Message\HellioMessagingMessage;
+use Hellio\HellioMessaging\Message\HellioMessagingMessage;
 
 public function toHellioMessaging()
 {

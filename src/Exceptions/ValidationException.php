@@ -1,6 +1,6 @@
 <?php
 
-namespace HellioSolutions\HellioMessaging\Exceptions;
+namespace Hellio\HellioMessaging\Exceptions;
 
 use Exception;
 
