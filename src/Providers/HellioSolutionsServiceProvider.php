@@ -46,7 +46,7 @@ class HellioSolutionsServiceProvider extends LaravelServiceProvider
             __DIR__ . '/../config/helliomessaging.php' => config_path('helliomessaging.php'),
         ], 'helliomessaging');
 
-        Validator::extend('helliomessaging_otp', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('hellio_otp', function ($attribute, $value, $parameters, $validator) {
             $client = app(Client::class);
             $values = $validator->getData();
             $mobile_number = Arr::get($values, empty($parameters[0]) ? 'mobile_number' : $parameters[0]);

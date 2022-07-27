@@ -188,7 +188,7 @@ Notification::route('helliomessaging', '233242813656')
 
 ## OTP Validator
 
-You can validate sent OTPs using provided validation rule named `helliomessaging_otp` as shown below:
+You can validate sent OTPs using provided validation rule named `hellio_otp` as shown below:
 
 ```php
 <?php
@@ -199,7 +199,7 @@ $data = ['mobile_number' => '233242813656', 'token' => '1234'];
 
 $validator = Validator::make($data, [
     'mobile_number' => ['required', 'digits:10'],
-    'token' => ['required', 'digits:4', 'helliomessaging_otp'], // default key for source number is 'mobile_number', you can customize this using 'helliomessaging_otp:key_name'
+    'token' => ['required', 'digits:4', 'hellio_otp'], // default key for source number is 'mobile_number', you can customize this using 'hellio_otp:key_name'
 ]);
 
 if ($validator->fails()) {
@@ -207,6 +207,26 @@ if ($validator->fails()) {
 }
 ```
 
-### License
+## Testing
 
-See [LICENSE](LICENSE) file.
+``` bash
+$ composer test
+```
+
+## Security
+
+If you discover any security related issues, please email support@helliomessaging.com instead of using the issue tracker.
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Credits
+
+- [Albert Ninyeh](https://github.com/VimKanzoGH)
+- [Norris Oduro Tei](https://github.com/Norris1z)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
