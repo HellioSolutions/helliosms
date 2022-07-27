@@ -54,15 +54,15 @@ class Client
 
     public function otp(
         string $mobile_number,
-        string $sender_id = null,
-        string $timeout = null,
-        string $token_length = null,
-        string $message = null,
+        string $sender_id,
+        string $timeout,
+        string $token_length,
+        string $message,
         int $message_type = 0,
         string $recipient_email = null): bool
     {
 
-        $response = $this->http->post(self::BASE_URL . 'channels/2fa/v3/request',  ['message' => $message, 'mobile_number' => $mobile_number, 'timeout' => $timeout, 'message_type' => $message_type, 'recipient_email' => $recipient_email, 'token_length' => $token_length, 'sender_id' => $sender_id ?? env('helliomessaging.default_sender')]);
+        $response = $this->http->post(self::BASE_URL . 'channels/2fa/v3/request',  ['message' => $message, 'mobile_number' => $mobile_number, 'timeout' => $timeout ?: '10', 'message_type' => $message_type, 'recipient_email' => $recipient_email, 'token_length' => $token_length ?: '4', 'sender_id' => $sender_id ?? env('HELLIO_MESSAGING_DEFAULT_SENDER') ?: env(APP_NAME)]);
         if ($response->getStatusCode() === 200) {
             $body = json_decode((string)$response->getBody(), true);
             return isset($body['type']) && ($body['type'] === 'success');
@@ -118,7 +118,7 @@ class Client
         string $sender_id = null,
         string $message_type = null)
     {
-        $response = $this->http->post(self::BASE_URL . '/channels/sms/v3/send', ['sender_id' => $sender_id ?? env('helliomessaging.default_sender'), 'message' => $message, 'mobile_number' => $mobile_number, 'message_type' => $message_type]);
+        $response = $this->http->post(self::BASE_URL . '/channels/sms/v3/send', ['sender_id' => $sender_id ?: env('HELLIO_MESSAGING_DEFAULT_SENDER'), 'message' => $message, 'mobile_number' => $mobile_number, 'message_type' => $message_type]);
         if ($response->getStatusCode() === 200) {
             $body = json_decode((string)$response->getBody(), true);
             return isset($body['type']) && ($body['type'] === 'success') ? $body['message'] : false;

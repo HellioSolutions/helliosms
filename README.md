@@ -33,9 +33,13 @@ Next, locate the `aliases` key and add the following line:
 
 ### Configuration
 
-Put the credentials and preferences in ENV with the keys `HELLIO_MESSAGING_CLIENT_ID`
-, `HELLIO_MESSAGING_APPLICATION_SECRET`, `HELLIO_MESSAGING_DEFAULT_SENDER`. If you want to customize this, publish the
-default configuration which will create a config file `config/helliomessaging.php`.
+Put the credentials and preferences in ENV with the keys:
+
+`HELLIO_MESSAGING_CLIENT_ID`
+`HELLIO_MESSAGING_APPLICATION_SECRET`
+`HELLIO_MESSAGING_DEFAULT_SENDER`
+
+If you want to customize this, publish the default configuration which will create a config file `config/helliomessaging.php`.
 
 ```bash
 $ php artisan vendor:publish --provider="Hellio\HellioMessaging\HellioSolutionsServiceProvider" --tag=config
@@ -49,6 +53,8 @@ $ php artisan vendor:publish --provider="Hellio\HellioMessaging\HellioSolutionsS
 
 ```php
 <?php
+
+//The first call assumes that you've already set a default sender_id in the helliomessaging.php config file.
 $response = HellioMessaging::sms('233242813656', 'Hello there!');
 
 $response = HellioMessaging::sms('233242813656', 'Hello there!', 'HellioSMS');
