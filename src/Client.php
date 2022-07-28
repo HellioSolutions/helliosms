@@ -2,157 +2,220 @@
 
 namespace Hellio\HellioMessaging;
 
-use GuzzleHttp\Client as Guzzle;
-use GuzzleHttp\Exception\GuzzleException;
-
 /**
  * Class Client
  * @package Hellio\HellioMessaging
  */
 class Client
 {
-    const BASE_URL = 'https://api.helliomessaging.com/';
-
     /**
-     * @var Guzzle
+     * @var string
      */
-    protected $http;
+
+    protected $clientId;
 
     /**
      * @var string
      */
-    protected $client_id;
+
+    protected $applicationSecret;
 
     /**
      * @var string
      */
-    protected $application_secret;
+
+    protected $client;
 
     /**
-     * Client constructor.
-     * @param string $client_id
-     * @param string $application_secret
+     * Response from helliomessaging api
+     * @var mixed
      */
-    public function __construct(string $client_id, string $application_secret)
+
+    protected $response;
+
+    /**
+     * @var string
+     */
+
+    protected $baseUrl;
+
+
+    public function __construct()
     {
-        $this->http = new Guzzle(['http_errors' => false]);
-        $this->client_id = $client_id;
-        $this->application_secret = $application_secret;
+        $this->getKey();
+        $this->getBaseUrl();
+        $this->setRequestOptions();
     }
 
     /**
-     * @param string $mobile_number
-     * @param string|null $sender_id
-     * @param string|null $message
-     * @param string|null $timeout
-     * @param string $message_type
-     * @param string|null $recipient_email
-     * @param string|null $token_length
-     * @return bool
-     * @throws GuzzleException
+     * Get secret key from helliomessaging cofig
      */
+
+    public function getKey()
+    {
+        $this->clientId = Config::get('helliomessaging.clientId');
+        $this->applicationSecret = Config::get('helliomessaging.applicationSecret');
+    }
+
+    /**
+     * Get base url from helliomessaging config
+     */
+
+    public function getBaseUrl()
+    {
+        $this->baseUrl = Config::get('helliomessaging.baseUrl');
+    }
+
+    /**
+     * Set request options
+     * @return client
+     */
+
+    private function setRequestOptions(): Client
+    {
+
+        $authBearer = ['auth' => [$this->clientId, $this->applicationSecret]];
+
+        $this->client = new Client(
+            [
+                'base_uri' => $this->baseUrl,
+                'headers' => [
+                    'Authorization' => $authBearer,
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ],
+            ]
+        );
+
+        return $this;
+    }
+
+    /**
+     * Get custmer account balance
+     * @return array
+     */
+
+    public function getCustomerBalance(): array
+    {
+
+        return $this->setRequestOptions()->setHttpResponse('/account/v3/balance', 'GET', [])->getData();
+
+    }
+
+    /**
+     * Get the data response from a get operation
+     * @return array
+     */
+    private function getData(): array
+    {
+        return $this->getResponse()['data'];
+    }
+
+    /**
+     * Decode json response into an array
+     * @return array
+     */
+
+    private function getResponse(): array
+    {
+        return json_decode($this->response->getBody(), true);
+    }
+
+    /**
+     * Set http response
+     * @param string $url
+     * @param string|null $method
+     * @param array $body
+     * @return Client
+     * @throws HellioMessagingException
+     */
+
+    private function setHttpResponse(string $url, string $method = null, array $body = []): Client
+    {
+        if (is_null($method)) {
+            throw new HellioMessagingException("Empty method not allowed");
+        }
+
+        $this->response = $this->client->{strtolower($method)}(
+            $this->baseUrl . $url,
+            ["body" => json_encode($body)]
+        );
+
+        return $this;
+    }
+
+    public function sms(
+        array  $mobile_number,
+        string $message,
+        string $message_type
+    ): array
+    {
+
+        $data = [
+            'mobile_number' => $mobile_number,
+            'message' => $message,
+            'message_type' => $message_type,
+            'sender_id' => Config::get('helliomessaging.senderId'),
+        ];
+
+        return $this->setRequestOptions()->setHttpResponse('/channels/sms/v3/send', 'POST', $data)->getData();
+
+    }
 
     public function otp(
         string $mobile_number,
-        string $sender_id,
         string $timeout,
         string $token_length,
         string $message,
-        int $message_type = 0,
-        string $recipient_email = null): bool
+        int    $message_type = 0,
+        string $recipient_email = null
+    ): array
     {
 
-        $response = $this->http->post(self::BASE_URL . 'channels/2fa/v3/request',  ['message' => $message, 'mobile_number' => $mobile_number, 'timeout' => $timeout ?: '10', 'message_type' => $message_type, 'recipient_email' => $recipient_email, 'token_length' => $token_length ?: '4', 'sender_id' => $sender_id ?? env('HELLIO_MESSAGING_DEFAULT_SENDER') ?: env(APP_NAME)]);
-        if ($response->getStatusCode() === 200) {
-            $body = json_decode((string)$response->getBody(), true);
-            return isset($body['type']) && ($body['type'] === 'success');
-        }
-        return false;
-    }
+        $data = [
 
-
-    /**
-     * @throws GuzzleException
-     */
-
-    public function balance(): bool
-    {
-        $response = $this->http->post(self::BASE_URL . '/account/v3/balance');
-        if ($response->getStatusCode() === 200) {
-            $body = json_decode((string)$response->getBody(), true);
-            return isset($body['type']) && ($body['type'] === 'success');
-        }
-        return 0;
-    }
-
-
-    /**
-     * @param array $email
-     * @param string|null $label
-     * @return bool
-     * @throws GuzzleException
-     */
-
-    public function emailvalidator(array $email, string $label = null): bool
-    {
-
-        $response = $this->http->post(self::BASE_URL . '/channels/email/v3/validator', ['email' => $email, 'label' => $label]);
-        if ($response->getStatusCode() === 200) {
-            $body = json_decode((string)$response->getBody(), true);
-            return isset($body['type']) && ($body['type'] === 'success');
-        }
-        return false;
-    }
-
-    /**
-     * @param array|string $mobile_number
-     * @param string|array $message
-     * @param string $sender_id
-     * @param string $message_type
-     * @return false|mixed
-     * @throws GuzzleException
-     */
-    public function sms(
-        array $mobile_number,
-        $message,
-        string $sender_id = null,
-        string $message_type = null)
-    {
-        $response = $this->http->post(self::BASE_URL . '/channels/sms/v3/send', ['sender_id' => $sender_id ?: env('HELLIO_MESSAGING_DEFAULT_SENDER'), 'message' => $message, 'mobile_number' => $mobile_number, 'message_type' => $message_type]);
-        if ($response->getStatusCode() === 200) {
-            $body = json_decode((string)$response->getBody(), true);
-            return isset($body['type']) && ($body['type'] === 'success') ? $body['message'] : false;
-        }
-        return false;
-    }
-
-    /**
-     * @param string $mobile_number
-     * @param string $token
-     * @return bool
-     * @throws GuzzleException
-     */
-    public function verify(string $mobile_number, string $token): bool
-    {
-        return $this->client->makeRequest(self::BASE_URL . 'channels/2fa/v3/verify', ['mobile_number' => $mobile_number, 'token' => $token]);
-    }
-
-        /**
-     * @param array|null $body
-     * @param string $url
-     * @return bool
-     */
-
-    public function makeRequest($url, $body): bool
-    {
-        $headers = [
-            'Content-Type' => 'application/json'
+            'mobile_number' => $mobile_number,
+            'timeout' => $timeout,
+            'token_length' => $token_length,
+            'message' => $message,
+            'message_type' => $message_type,
+            'recipient_email' => $recipient_email,
+            'sender_id' => Config::get('helliomessaging.senderId'),
         ];
-        $response = $this->http->sendAsync->post($url, ['headers' => $headers, ['body' => ['client_id' => $this->client_id, 'application_secret' => $this->application_secret] + $body ?: null ]])->wait();
-        if ($response->getStatusCode() === 200) {
-            $body = json_decode((string)$response->getBody(), true);
-            return isset($body['type']) && ($body['type'] === 'success');
-        }
-        return false;
+
+        return $this->setRequestOptions()->setHttpResponse('/channels/2fa/v3/request', 'POST', $data)->getData();
+
     }
+
+    public function emailvalidator(
+        array  $email,
+        string $label = null
+    ): array
+    {
+
+        $data = [
+            'email' => $email,
+            'label' => $label,
+        ];
+
+
+        return $this->setRequestOptions()->setHttpResponse('/channels/email/v3/validator', 'POST', $data)->getData();
+
+    }
+
+    public function verifyOtp(
+        string $mobile_number,
+        string $token
+    ): array
+    {
+
+        $data = [
+            'mobile_number' => $mobile_number,
+            'token' => $token,
+        ];
+
+        return $this->setRequestOptions()->setHttpResponse('channels/2fa/v3/verify', 'POST', $data)->getData();
+
+    }
+
 }

@@ -35,8 +35,8 @@ Next, locate the `aliases` key and add the following line:
 
 Put the credentials and preferences in ENV with the keys:
 
-`HELLIO_MESSAGING_CLIENT_ID`
-`HELLIO_MESSAGING_APPLICATION_SECRET`
+`HELLIO_MESSAGING_CLIENT_ID`\
+`HELLIO_MESSAGING_APPLICATION_SECRET`\
 `HELLIO_MESSAGING_DEFAULT_SENDER`
 
 If you want to customize this, publish the default configuration which will create a config file `config/helliomessaging.php`.
@@ -46,6 +46,15 @@ $ php artisan vendor:publish --provider="Hellio\HellioMessaging\HellioSolutionsS
 ```
 
 ## Usage:
+
+Open your .env file and add your api key like so:
+
+```bash
+
+HELLIO_MESSAGING_CLIENT_ID=pk_xxxxx
+HELLIO_MESSAGING_APPLICATION_SECRET=sk_xxxxx
+
+```
 
 ### Basic
 
@@ -63,6 +72,17 @@ $response = HellioMessaging::sms(null, [
     ['mobile_number' => ['233242813656', '233591451609'], 'message' => 'Hello there!'],
     ['mobile_number' => ['233203555816'], 'message' => 'Come here!'],
 ], 'HellioSMS');
+```
+
+## SMS Responses:
+
+### On Success
+
+```json
+{
+    "success": true,
+    "message": "{sms_count} sms sent successfully"
+}
 ```
 
 -   Send OTP to a mobile number.
