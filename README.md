@@ -51,8 +51,9 @@ Open your .env file and add your api key like so:
 
 ```bash
 
-HELLIO_MESSAGING_CLIENT_ID=pk_xxxxx
-HELLIO_MESSAGING_APPLICATION_SECRET=sk_xxxxx
+HELLIO_MESSAGING_CLIENT_ID=xxxxxxxx
+HELLIO_MESSAGING_APPLICATION_SECRET=xxxxxxxx
+HELLIO_MESSAGING_DEFAULT_SENDER=YourSenderName //Max of 11 characters
 
 ```
 
@@ -81,7 +82,7 @@ $response = HellioMessaging::sms(null, [
 ```json
 {
     "success": true,
-    "message": "{sms_count} sms sent successfully"
+    "message": "1 sms sent successfully"
 }
 ```
 
