@@ -13,10 +13,10 @@ use function Hellio\HellioMessaging\config_path;
 use function Hellio\HellioMessaging\env;
 
 /**
- * Class HellioSolutionsServiceProvider
+ * Class HellioServiceProvider
  * @package Hellio\HellioMessaging
  */
-class HellioSolutionsServiceProvider extends LaravelServiceProvider
+class HellioServiceProvider extends LaravelServiceProvider
 {
     /**
      * Register services.
@@ -43,9 +43,7 @@ class HellioSolutionsServiceProvider extends LaravelServiceProvider
      */
     public function boot()
     {
-
           $config = realpath(__DIR__ . '/../config/helliomessaging.php');
-
           $this->publishes([
             $config => config_path('helliomessaging.php'),
         ]);
