@@ -54,4 +54,11 @@ class HellioMessagingMessage
         return $this;
     }
 
+    public function mobile_number(string $mobile_number): HellioMessagingMessage
+    {
+        $this->mobile_number = $mobile_number;
+        return $this;
+    }
+
+
 }
