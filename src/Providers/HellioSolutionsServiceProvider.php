@@ -23,6 +23,7 @@ class HellioSolutionsServiceProvider extends LaravelServiceProvider
      *
      * @return void
      */
+
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/helliomessaging.php', 'helliomessaging');
@@ -42,9 +43,12 @@ class HellioSolutionsServiceProvider extends LaravelServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__ . '/../config/helliomessaging.php' => config_path('helliomessaging.php'),
-        ], 'helliomessaging');
+
+          $config = realpath(__DIR__ . '/../config/helliomessaging.php');
+
+          $this->publishes([
+            $config => config_path('helliomessaging.php'),
+        ]);
 
         Validator::extend('hellio_otp', function ($attribute, $value, $parameters, $validator) {
             $client = app(Client::class);
@@ -52,5 +56,10 @@ class HellioSolutionsServiceProvider extends LaravelServiceProvider
             $mobile_number = Arr::get($values, empty($parameters[0]) ? 'mobile_number' : $parameters[0]);
             return $client->verify($mobile_number, $value);
         });
+    }
+
+     public function provides()
+    {
+        return ['helliomessaging'];
     }
 }

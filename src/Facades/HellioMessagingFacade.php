@@ -2,7 +2,7 @@
 
 namespace Hellio\HellioMessaging\Facades;
 
-use Illuminate\Support\Facades\Facade as LaravelFacade;
+use Illuminate\Support\Facades\Facade;
 
 /**
  * Class Facade
@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Facade as LaravelFacade;
  * @method static string|false balance()
  * @method static bool verify(string $mobile_number, string $token)
  */
-class Facade extends LaravelFacade
+class HellioMessagingFacade extends Facade
 {
     /**
      * {@inheritdoc}
      */
     protected static function getFacadeAccessor(): string
     {
-        return Client::class;
+        return 'helliomessaging';
+        // return Client::class;
     }
 }
