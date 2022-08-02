@@ -31,7 +31,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Hellio\\HellioMessaging\\HellioServiceProvider"
+                "Hellio\\HellioMessaging\\HellioMessagingServiceProvider"
             ],
             "aliases": {
                 "HellioMessaging": "Hellio\\HellioMessaging\\Facade"
