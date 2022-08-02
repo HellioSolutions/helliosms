@@ -22,7 +22,7 @@ Once the package is installed, open your `app/config/app.php` configuration file
 following line to the end:
 
 ```php
-\Hellio\HellioMessaging\Providers\HellioServiceProvider::class
+\Hellio\HellioMessaging\Providers\ServiceProvider::class
 ```
 
 Next, locate the `aliases` key and add the following line:

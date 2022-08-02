@@ -12,7 +12,11 @@ use function Hellio\HellioMessaging\app;
 use function Hellio\HellioMessaging\config_path;
 use function Hellio\HellioMessaging\env;
 
-class HellioServiceProvider extends LaravelServiceProvider
+/**
+ * Class ServiceProvider
+ * @package Hellio\HellioMessaging
+ */
+class ServiceProvider extends LaravelServiceProvider
 {
     /**
      * Register services.
