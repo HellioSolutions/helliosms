@@ -1,10 +1,10 @@
 <?php
 
-namespace Hellio\HellioMessaging;
+namespace Hellio\HellioMessaging\Exceptions;
 
 use Exception;
 
-class HellioMessagingException extends Exception
+class MethodNotAllowedException extends Exception
 {
 
     public function __construct($message, $code = 0, Exception $previous = null)
