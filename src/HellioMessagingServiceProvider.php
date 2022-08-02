@@ -12,18 +12,36 @@ use function Hellio\HellioMessaging\app;
 use function Hellio\HellioMessaging\config_path;
 use function Hellio\HellioMessaging\env;
 
-/**
- * Class HellioMessagingServiceProvider
- * @package Hellio\HellioMessaging\Providers
- */
 
 class HellioMessagingServiceProvider extends LaravelServiceProvider
 {
-    /**
-     * Register services.
+
+      /**
+     * Bootstrap services.
      *
      * @return void
      */
+    public function boot()
+    {
+            $this->mergeConfigFrom(__DIR__.'/../config/helliomessaging.php', 'helliomessaging');
+            $this->publishAssets();
+
+        Validator::extend('hellio_otp', function ($attribute, $value, $parameters, $validator) {
+            $client = app(Client::class);
+            $values = $validator->getData();
+            $mobile_number = Arr::get($values, empty($parameters[0]) ? 'mobile_number' : $parameters[0]);
+            return $client->verify($mobile_number, $value);
+        });
+    }
+
+       protected function publishAssets()
+    {
+        if (!$this->app->runningInConsole() || Str::contains($this->app->version(), 'lumen'))
+            return;
+
+        $this->publishes([__DIR__.'/../config/helliomessaging.php' => config_path('helliomessaging.php')]);
+    }
+
 
     public function register()
     {
@@ -37,25 +55,6 @@ class HellioMessagingServiceProvider extends LaravelServiceProvider
         });
     }
 
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-          $config = realpath(__DIR__ . '/../config/helliomessaging.php');
-          $this->publishes([
-            $config => config_path('helliomessaging.php'),
-        ]);
-
-        Validator::extend('hellio_otp', function ($attribute, $value, $parameters, $validator) {
-            $client = app(Client::class);
-            $values = $validator->getData();
-            $mobile_number = Arr::get($values, empty($parameters[0]) ? 'mobile_number' : $parameters[0]);
-            return $client->verify($mobile_number, $value);
-        });
-    }
 
      public function provides()
     {

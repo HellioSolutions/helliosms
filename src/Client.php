@@ -127,13 +127,13 @@ class Client
      * @param string|null $method
      * @param array $body
      * @return Client
-     * @throws MethodNotAllowedException
+     * @throws HellioMessagingException
      */
 
     private function setHttpResponse(string $url, string $method = null, array $body = []): Client
     {
         if (is_null($method)) {
-            throw new MethodNotAllowedException("Empty method not allowed");
+            throw new HellioMessagingException("Empty method not allowed");
         }
 
         $this->response = $this->client->{strtolower($method)}(
