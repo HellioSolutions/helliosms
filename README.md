@@ -172,7 +172,7 @@ public function toHellioMessaging()
 {
     return (new HellioMessagingMessage)
         ->message(__('This is just a test message.'))
-	    ->sender_id('HellioSMS') // [Optional] - Will pick default sender ID from HELLIO_MESSAGING_DEFAULT_SENDER or if not set, will use the application name.
+	    ->sender_id(__('HellioSMS')) // [Optional] - Will pick default sender ID from HELLIO_MESSAGING_DEFAULT_SENDER or if not set, will use the application name.
         ->to('233242813656');
 }
 ```
