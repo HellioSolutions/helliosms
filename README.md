@@ -28,7 +28,7 @@ following line to the end:
 Next, locate the `aliases` key and add the following line:
 
 ```php
-'HellioMessaging' => \Hellio\HellioMessaging\Facades\HellioMessagingFacade::class,
+'HellioMessaging' => \Hellio\HellioMessaging\Facades\HellioMessaging::class,
 ```
 
 ### Configuration
