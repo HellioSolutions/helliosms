@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string|false balance()
  * @method static bool verify(string $mobile_number, string $token)
  */
-class HellioMessagingFacade extends Facade
+class HellioMessaging extends Facade
 {
     /**
      * {@inheritdoc}

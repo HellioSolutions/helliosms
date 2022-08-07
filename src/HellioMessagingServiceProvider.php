@@ -7,26 +7,23 @@ use Hellio\HellioMessaging\Client;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-
-use function Hellio\HellioMessaging\app;
-use function Hellio\HellioMessaging\config_path;
-use function Hellio\HellioMessaging\env;
-
-
-class HellioMessagingServiceProvider extends LaravelServiceProvider
+class HellioMessagingServiceProvider extends ServiceProvider
 {
 
-      /**
+    /**
      * Bootstrap services.
      *
      * @return void
      */
     public function boot()
     {
-            $this->mergeConfigFrom(__DIR__.'/../config/helliomessaging.php', 'helliomessaging');
-            $this->publishAssets();
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/helliomessaging.php' => config_path('helliomessaging.php')
+            ], 'config');
+        }
 
         Validator::extend('hellio_otp', function ($attribute, $value, $parameters, $validator) {
             $client = app(Client::class);
@@ -36,18 +33,8 @@ class HellioMessagingServiceProvider extends LaravelServiceProvider
         });
     }
 
-       protected function publishAssets()
-    {
-        if (!$this->app->runningInConsole() || Str::contains($this->app->version(), 'lumen'))
-            return;
-
-        $this->publishes([__DIR__.'/../config/helliomessaging.php' => config_path('helliomessaging.php')]);
-    }
-
-
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/helliomessaging.php', 'helliomessaging');
         $this->app->bind(Client::class, function () {
             return new Client(env('helliomessaging.client_id'), env('helliomessaging.application_secret'));
         });
@@ -57,8 +44,7 @@ class HellioMessagingServiceProvider extends LaravelServiceProvider
         });
     }
 
-
-     public function provides()
+    public function provides()
     {
         return ['helliomessaging'];
     }
