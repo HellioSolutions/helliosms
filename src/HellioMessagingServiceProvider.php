@@ -21,7 +21,7 @@ class HellioMessagingServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/helliomessaging.php' => config_path('helliomessaging.php')
-            ], 'config');
+            ], 'helliomessaging');
         }
 
         Validator::extend('hellio_otp', function ($attribute, $value, $parameters, $validator) {
