@@ -166,11 +166,11 @@ Define the `toHellioMessaging` method:
 ```php
 <?php
 
-use Hellio\HellioMessaging\Message\HellioMessagingMessage;
+use Hellio\HellioMessaging\Message\HellioMessagingSms;
 
 public function toHellioMessaging()
 {
-    return (new HellioMessagingMessage)
+    return (new HellioMessagingSms)
         ->message(__('This is just a test message.'))
 	    ->sender_id(__('HellioSMS')) // [Optional] - Will pick default sender ID from HELLIO_MESSAGING_DEFAULT_SENDER or if not set, will use the application name.
         ->to('233242813656');

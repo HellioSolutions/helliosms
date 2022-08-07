@@ -4,7 +4,7 @@ namespace Hellio\HellioMessaging\Channels;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Hellio\HellioMessaging\Client;
-use Hellio\HellioMessaging\Message\HellioMessagingMessage;
+use Hellio\HellioMessaging\Message\HellioMessagingSms;
 use Illuminate\Notifications\Notification;
 
 /**
@@ -41,7 +41,7 @@ class HellioMessagingChannel
         if (empty($mobile_number)) {
             return;
         }
-        /** @var HellioMessagingMessage $message */
+        /** @var HellioMessagingSms $message */
         $message = $notification->toHellioMessaging($notifiable);
         $this->client->sms($mobile_number, $message->message, $message->sender_id, $message->message_type);
     }
