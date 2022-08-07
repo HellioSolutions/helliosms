@@ -2,6 +2,8 @@
 
 namespace Hellio\HellioMessaging\Exceptions;
 
-class InvalidDataException extends \Exception
+use Exception;
+
+class InvalidDataException extends Exception
 {
 }

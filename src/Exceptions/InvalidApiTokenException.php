@@ -2,6 +2,8 @@
 
 namespace Hellio\HellioMessaging\Exceptions;
 
-class InvalidApiTokenException extends \Exception
+use Exception;
+
+class InvalidApiTokenException extends Exception
 {
 }

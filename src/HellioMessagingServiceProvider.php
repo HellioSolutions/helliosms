@@ -3,7 +3,6 @@
 namespace Hellio\HellioMessaging;
 
 use Hellio\HellioMessaging\Channels;
-use Hellio\HellioMessaging\Client;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
@@ -44,7 +43,7 @@ class HellioMessagingServiceProvider extends ServiceProvider
         });
     }
 
-    public function provides()
+    public function provides(): array
     {
         return ['helliomessaging'];
     }

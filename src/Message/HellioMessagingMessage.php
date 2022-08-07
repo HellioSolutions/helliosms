@@ -2,10 +2,7 @@
 
 namespace Hellio\HellioMessaging\Message;
 
-/**
- * Class HellioMessagingSMS
- * @package Hellio\HellioMessaging\Message
- */
+
 class HellioMessagingMessage
 {
     /**
@@ -22,6 +19,10 @@ class HellioMessagingMessage
      * @var string
      */
     public $sender_id;
+    /**
+     * @var string
+     */
+    public $mobile_number;
 
     /**
      * @param string $message

@@ -3,6 +3,7 @@
 namespace Hellio\HellioMessaging;
 
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\GuzzleException;
 use Hellio\HellioMessaging\Message\MessageType;
 
 /**
@@ -59,8 +60,9 @@ class Client
     }
 
     /**
-     * Get custmer account balance
+     * Get customer account balance
      * @return array
+     * @throws GuzzleException
      */
 
     public function getCustomerBalance(): array
@@ -69,11 +71,15 @@ class Client
         return $this->jsonRequest('GET', '/account/v3/balance');
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function sms(
         $mobile_number,
         string $message,
         int $message_type = MessageType::SMS
-    ) {
+    )
+    {
         if (is_array($mobile_number)) {
             $mobile_number = implode($mobile_number, ",");
         }
@@ -85,14 +91,18 @@ class Client
         return $this->jsonRequest('POST', '/v2/sms', $data);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function otp(
         string $mobile_number,
         string $timeout,
         string $token_length,
         string $message,
-        int $message_type = MessageType::SMS,
+        int    $message_type = MessageType::SMS,
         string $recipient_email = null
-    ) {
+    )
+    {
 
         $data = [
             'msisdn' => $mobile_number,
@@ -106,10 +116,14 @@ class Client
         return $this->jsonRequest('POST', '/channels/2fa/v3/request', $data);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function emailvalidator(
         array  $email,
         string $label = null
-    ) {
+    )
+    {
 
         $data = [
             'email' => $email,
@@ -120,24 +134,31 @@ class Client
         return $this->jsonRequest('POST', '/channels/email/v3/validator', $data);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function verifyOtp(
         string $mobile_number,
         string $token
-    ) {
+    )
+    {
 
         $data = [
             'mobile_number' => $mobile_number,
             'token' => $token,
         ];
 
-        return $this->jsonRequest('POST', 'channels/2fa/v3/verify',  $data);
+        return $this->jsonRequest('POST', 'channels/2fa/v3/verify', $data);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     private function jsonRequest($method, $url, $body = [])
     {
         return json_decode($this->client->request($method, $url,
-        [
-            'body' => json_encode(array_merge($this->defaultBody, $body))
+            [
+                'body' => json_encode(array_merge($this->defaultBody, $body))
             ])->getBody());
     }
 }

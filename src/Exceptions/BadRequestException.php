@@ -2,6 +2,8 @@
 
 namespace Hellio\HellioMessaging\Exceptions;
 
-class BadRequestException extends \Exception
+use Exception;
+
+class BadRequestException extends Exception
 {
 }
