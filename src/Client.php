@@ -74,6 +74,17 @@ class Client
     /**
      * @throws GuzzleException
      */
+    private function jsonRequest($method, $url, $body = [])
+    {
+        return json_decode($this->client->request($method, $url,
+            [
+                'body' => json_encode(array_merge($this->defaultBody, $body))
+            ])->getBody());
+    }
+
+    /**
+     * @throws GuzzleException
+     */
     public function sms(
         $mobile_number,
         string $message,
@@ -149,16 +160,5 @@ class Client
         ];
 
         return $this->jsonRequest('POST', 'channels/2fa/v3/verify', $data);
-    }
-
-    /**
-     * @throws GuzzleException
-     */
-    private function jsonRequest($method, $url, $body = [])
-    {
-        return json_decode($this->client->request($method, $url,
-            [
-                'body' => json_encode(array_merge($this->defaultBody, $body))
-            ])->getBody());
     }
 }

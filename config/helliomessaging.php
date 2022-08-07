@@ -15,7 +15,7 @@ return [
     'clientId' => getenv('HELLIO_MESSAGING_CLIENT_ID'),
 
     /**
-     * Aplication Secret
+     * Application Secret
      *
      */
     'applicationSecret' => getenv('HELLIO_MESSAGING_APPLICATION_SECRET'),
