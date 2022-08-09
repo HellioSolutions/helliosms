@@ -4,7 +4,7 @@ namespace Hellio\HellioMessaging;
 
 use Illuminate\Support\Arr;
 use Hellio\HellioMessaging\Channels;
-use Hellio\HellioMessaging\HellioSMS;
+use Hellio\HellioMessaging\Client;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
@@ -37,7 +37,7 @@ class HellioMessagingServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(Client::class, function () {
-            return new HellioSMS(env('helliomessaging.client_id'), env('helliomessaging.application_secret'));
+            return new Client(env('helliomessaging.client_id'), env('helliomessaging.application_secret'));
         });
         $this->app->alias(Client::class, 'helliomessaging');
         Notification::extend('helliomessaging', function () {
