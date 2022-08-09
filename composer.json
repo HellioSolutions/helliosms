@@ -3,14 +3,15 @@
     "description": "Laravel integration for the Hellio Messaging array of services.",
     "type": "library",
     "keywords": [
-        "laravel",
+        "laravel sms",
         "hellio messaging",
-        "integration",
-        "sms",
-        "otp",
-        "notification",
-        "channel",
-        "voice sms"
+        "laravel integration sms",
+        "sms laravel package",
+        "laravel otp package",
+        "laravel notification package",
+        "laravel channel notification package",
+        "laravel voice sms package",
+        "bulk sms in Ghana"
     ],
     "license": "MIT",
     "authors": [
@@ -22,7 +23,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Hellio\\HellioMessaging\\": "src/"
+            "Hellio\\HellioMessaging\\": "src/",
+            "Hellio\\HellioMessaging\\Tests\\": "tests"
         }
     },
     "config": {
