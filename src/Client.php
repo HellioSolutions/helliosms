@@ -90,7 +90,7 @@ class Client
     public function sms(
         $mobile_number,
         string $message,
-        int $message_type = MessageType::SMS
+        string $message_type = MessageType::SMS
     )
     {
         if (is_array($mobile_number)) {
