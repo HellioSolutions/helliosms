@@ -66,7 +66,7 @@ class Client
     public function getCustomerBalance(): array
     {
        if (config('helliomessaging.apiVersion') == 'v1') {
-              $url = 'credit-balance';
+              $url = config('helliomessaging.apiVersion') . '/credit-balance';
          } else {
                 $url = 'v2/customer/balance';
          }
