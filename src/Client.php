@@ -6,11 +6,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use Hellio\HellioMessaging\Message\MessageType;
 
-/**
- * Class Client
- * @package Hellio\HellioMessaging
- */
-class HellioSMS
+class Client
 {
     /**
      * @var GuzzleClient
@@ -69,8 +65,14 @@ class HellioSMS
 
     public function getCustomerBalance(): array
     {
+       if (config('helliomessaging.apiVersion') == 'v1') {
+              $url = 'credit-balance';
+         } else {
+                $url = 'v2/customer/balance';
+         }
+        return $this->jsonRequest('GET', $url);
 
-        return $this->jsonRequest('GET', '/account/v3/balance');
+        // return $this->jsonRequest('GET', 'account/'. config('helliomessaging.apiVersion') .'/balance');
     }
 
     /**

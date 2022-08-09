@@ -3,7 +3,7 @@
 namespace Hellio\HellioMessaging\Test;
 
 use Mockery;
-use Hellio\HellioMessaging\HellioSMS;
+use Hellio\HellioMessaging\Client;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
 use Hellio\HellioMessaging\HellioMessagingChannel;
@@ -19,14 +19,14 @@ class HellioMessagingChannelTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->hellioMessaging = Mockery::mock(HellioSMS::class);
+        $this->hellioMessaging = Mockery::mock(Client::class);
         $this->channel = new HellioMessagingChannel($this->hellioMessaging);
     }
 
     /** @test */
     public function it_can_be_instantiated()
     {
-        $this->assertInstanceOf(HellioSMS::class, $this->hellioMessaging);
+        $this->assertInstanceOf(Client::class, $this->hellioMessaging);
         $this->assertInstanceOf(HellioMessagingChannel::class, $this->channel);
     }
 

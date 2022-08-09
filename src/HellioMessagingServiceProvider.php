@@ -27,7 +27,7 @@ class HellioMessagingServiceProvider extends ServiceProvider
         }
 
         Validator::extend('hellio_otp', function ($attribute, $value, $parameters, $validator) {
-            $client = app(HellioSMS::class);
+            $client = app(Client::class);
             $values = $validator->getData();
             $mobile_number = Arr::get($values, empty($parameters[0]) ? 'mobile_number' : $parameters[0]);
             return $client->verify($mobile_number, $value);
@@ -36,12 +36,12 @@ class HellioMessagingServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind(HellioSMS::class, function () {
+        $this->app->bind(Client::class, function () {
             return new HellioSMS(env('helliomessaging.client_id'), env('helliomessaging.application_secret'));
         });
-        $this->app->alias(HellioSMS::class, 'helliomessaging');
+        $this->app->alias(Client::class, 'helliomessaging');
         Notification::extend('helliomessaging', function () {
-            return new HellioMessagingChannel(app(HellioSMS::class));
+            return new HellioMessagingChannel(app(Client::class));
         });
     }
 

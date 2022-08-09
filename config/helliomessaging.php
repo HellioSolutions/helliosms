@@ -28,4 +28,11 @@ return [
     'defaultSender' => getenv('HELLIO_MESSAGING_DEFAULT_SENDER'),
 
 
+    /**
+     * Default API version
+     *
+     */
+
+    'apiVersion' => 'v1',
+
 ];
