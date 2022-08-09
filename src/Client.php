@@ -63,7 +63,7 @@ class Client
      * @throws GuzzleException
      */
 
-    public function getCustomerBalance(): array
+    public function getCustomerBalance()
     {
        if (config('helliomessaging.apiVersion') == 'v1') {
               $url = config('helliomessaging.apiVersion') . '/credit-balance';
