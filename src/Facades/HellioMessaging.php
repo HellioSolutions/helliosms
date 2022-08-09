@@ -23,6 +23,5 @@ class HellioMessaging extends Facade
     protected static function getFacadeAccessor(): string
     {
         return 'helliomessaging';
-        // return Client::class;
     }
 }

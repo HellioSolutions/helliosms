@@ -1,6 +1,6 @@
 <?php
 
-namespace Hellio\HellioMessaging\Providers;
+namespace Hellio\HellioMessaging;
 
 use Illuminate\Support\Arr;
 use Hellio\HellioMessaging\Client;
@@ -8,6 +8,7 @@ use Hellio\HellioMessaging\Channels;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
+use Hellio\HellioMessaging\Facades\HellioMessaging;
 
 class HellioMessagingServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,10 @@ class HellioMessagingServiceProvider extends ServiceProvider
         $this->app->alias(Client::class, 'helliomessaging');
         Notification::extend('helliomessaging', function () {
             return new Channels\HellioMessagingChannel(app(Client::class));
+        });
+
+        $this->app->bind('helliomessaging', function($app) {
+            return new HellioMessaging();
         });
     }
 
