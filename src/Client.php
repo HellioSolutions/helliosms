@@ -90,6 +90,7 @@ class Client
     public function sms(
         $mobile_number,
         string $message,
+        ?string $senderId = null,
         string $message_type = MessageType::SMS
     )
     {
@@ -99,7 +100,8 @@ class Client
         $data = [
             'msisdn' => $mobile_number,
             'message' => $message,
-            'message_type' => $message_type
+            'message_type' => $message_type,
+            'sender_id' => $senderId ?? config('helliomessaging.defaultSender')
         ];
         return $this->jsonRequest('POST', '/v2/sms', $data);
     }
@@ -110,9 +112,10 @@ class Client
     public function otp(
         string $mobile_number,
         string $timeout,
+        ?string $senderId = null,
         string $token_length,
         string $message,
-        int    $message_type = MessageType::SMS,
+        string $message_type = MessageType::SMS,
         string $recipient_email = null
     )
     {
@@ -122,6 +125,7 @@ class Client
             'timeout' => $timeout,
             'token_length' => $token_length,
             'message' => $message,
+            'sender_id' => $senderId ?? config('helliomessaging.defaultSender'),
             'message_type' => $message_type,
             'recipient_email' => $recipient_email
         ];

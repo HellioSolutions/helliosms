@@ -21,11 +21,14 @@
             "homepage": "https://github.com/VimKanzoGH"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "Hellio\\HellioMessaging\\": "src/"
-        }
-    },
+     "autoload": {},
+
+  "autoload-dev": {
+    "psr-4": {
+             "Hellio\\HellioMessaging\\": "src/",
+             "Hellio\\HellioMessaging\\Tests\\": "tests"
+    }
+  },
     "config": {
         "sort-packages": true
     },
