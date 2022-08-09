@@ -137,10 +137,13 @@ class Client
      * @throws GuzzleException
      */
     public function emailvalidator(
-        array  $email,
+         $email,
         string $label = null
     )
     {
+        if (is_array($email)) {
+            $email = implode($email, ",");
+        }
 
         $data = [
             'email' => $email,
