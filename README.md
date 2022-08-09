@@ -42,7 +42,7 @@ Put the credentials and preferences in ENV with the keys:
 If you want to customize this, publish the default configuration which will create a config file `config/helliomessaging.php`.
 
 ```bash
-$ php artisan vendor:publish --provider="Hellio\HellioMessaging\HellioMessagingServiceProvider" --tag=config
+$ php artisan vendor:publish --provider="Hellio\HellioMessaging\Providers\HellioMessagingServiceProvider" --tag=config
 ```
 
 ## Usage:
