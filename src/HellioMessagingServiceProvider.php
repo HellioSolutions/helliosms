@@ -37,7 +37,7 @@ class HellioMessagingServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(HellioSMS::class, function () {
-            return new Client(env('helliomessaging.client_id'), env('helliomessaging.application_secret'));
+            return new HellioSMS(env('helliomessaging.client_id'), env('helliomessaging.application_secret'));
         });
         $this->app->alias(HellioSMS::class, 'helliomessaging');
         Notification::extend('helliomessaging', function () {
