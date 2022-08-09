@@ -34,16 +34,24 @@ class Client
     {
         $this->baseUrl = config('helliomessaging.baseUrl');
 
-        $clientId = config('helliomessaging.clientId');
-        $applicationSecret = config('helliomessaging.applicationSecret');
+        //API v1 default params
+        $username = config('helliomessaging.username');
+        $password = config('helliomessaging.password');
         $senderId = config('helliomessaging.defaultSender');
 
-        $this->defaultBody = [
-            'clientId' => $clientId,
-            'authKey' => sha1($clientId . $applicationSecret . date('YmdH')),
-            'senderId' => $senderId
-        ];
-
+        if (config('helliomessaging.apiVersion') == 'v1') {
+            $this->defaultBody = [
+                'username' => $username,
+                'password' => $password,
+                'sender' => $senderId,
+            ];
+        } else {
+            $this->defaultBody = [
+                'client_id' => $clientId,
+                'authKey' => sha1($clientId . $applicationSecret . date('YmdH')),
+                'sender_id' => $senderId
+            ];
+        }
 
         $this->client = new GuzzleClient(
             [
@@ -68,11 +76,9 @@ class Client
        if (config('helliomessaging.apiVersion') == 'v1') {
               $url = config('helliomessaging.apiVersion') . '/credit-balance';
          } else {
-                $url = 'v2/customer/balance';
+                $url = 'v3/customer/balance';
          }
         return $this->jsonRequest('GET', $url);
-
-        // return $this->jsonRequest('GET', 'account/'. config('helliomessaging.apiVersion') .'/balance');
     }
 
     /**
