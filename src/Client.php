@@ -48,8 +48,10 @@ class Client
             'senderId' => $senderId
         ];
 
+
         $this->client = new GuzzleClient(
             [
+                'verify' => false, // disable ssl verification
                 'base_uri' => $this->baseUrl,
                 'headers' => [
                     'Content-Type' => 'application/json',
