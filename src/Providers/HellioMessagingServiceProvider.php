@@ -1,13 +1,13 @@
 <?php
 
-namespace Hellio\HellioMessaging;
+namespace Hellio\HellioMessaging\Providers;
 
-use Hellio\HellioMessaging\Channels;
-use Hellio\HellioMessaging\Client;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Validator;
+use Hellio\HellioMessaging\Client;
+use Hellio\HellioMessaging\Channels;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Notification;
 
 class HellioMessagingServiceProvider extends ServiceProvider
 {
@@ -22,7 +22,7 @@ class HellioMessagingServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/helliomessaging.php' => config_path('helliomessaging.php')
-            ], 'config');
+            ], 'helliomessaging');
         }
 
         Validator::extend('hellio_otp', function ($attribute, $value, $parameters, $validator) {
@@ -44,7 +44,7 @@ class HellioMessagingServiceProvider extends ServiceProvider
         });
     }
 
-    public function provides()
+    public function provides(): array
     {
         return ['helliomessaging'];
     }
