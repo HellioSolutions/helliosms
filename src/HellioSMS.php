@@ -10,7 +10,7 @@ use Hellio\HellioMessaging\Message\MessageType;
  * Class Client
  * @package Hellio\HellioMessaging
  */
-class Client
+class HellioSMS
 {
     /**
      * @var GuzzleClient

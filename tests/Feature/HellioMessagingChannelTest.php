@@ -2,12 +2,13 @@
 
 namespace Hellio\HellioMessaging\Test;
 
-use Hellio\HellioMessaging\Exceptions\CouldNotSendNotification;
-use Hellio\HellioMessaging\HellioMessagingChannel;
-use Hellio\HellioMessaging\HellioMessagingMessage;
+use Mockery;
+use Hellio\HellioMessaging\HellioSMS;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
-use Mockery;
+use Hellio\HellioMessaging\HellioMessagingChannel;
+use Hellio\HellioMessaging\HellioMessagingMessage;
+use Hellio\HellioMessaging\Exceptions\CouldNotSendNotification;
 
 class HellioMessagingChannelTest extends TestCase
 {
@@ -18,7 +19,7 @@ class HellioMessagingChannelTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->hellioMessaging = Mockery::mock(Client::class);
+        $this->hellioMessaging = Mockery::mock(HellioSMS::class);
         $this->channel = new HellioMessagingChannel($this->hellioMessaging);
     }
 
