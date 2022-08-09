@@ -10,7 +10,8 @@
         "otp",
         "notification",
         "channel",
-        "voice sms"
+        "voice sms",
+        "bulk sms in Ghana"
     ],
     "license": "MIT",
     "authors": [

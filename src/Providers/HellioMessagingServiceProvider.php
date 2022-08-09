@@ -1,6 +1,6 @@
 <?php
 
-namespace Hellio\HellioMessaging\Providers;
+namespace Hellio\HellioMessaging;
 
 use Hellio\HellioMessaging\Channels;
 use Illuminate\Support\Arr;
