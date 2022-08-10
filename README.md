@@ -3,8 +3,7 @@
 ### About
 
 Official Laravel package that integrates with [Hellio Messaging](https://helliomessaging.com)'s fleets of APIs nicely
-with [Laravel](https://laravel.com/) 5+ adding support for **SMS**, **Notification**, **Voice SMS**, **OTP Codes**, **
-OTP Verification**, **Email Validator Service** & **Laravel Validator** as well.
+with [Laravel](https://laravel.com/) 5+ adding support for **SMS**, **Notification**, **Voice SMS**, **OTP Codes**, **OTP Validation**, **Email Validator Service** & **Laravel Validator** as well.
 
 ### Registration
 
