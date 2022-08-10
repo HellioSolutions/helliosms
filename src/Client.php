@@ -39,6 +39,10 @@ class Client
         $password = config('helliomessaging.password');
         $senderId = config('helliomessaging.defaultSender');
 
+        //Default param for the latest versions of the Hellio API
+        $clientId = config('helliomessaging.clientId');
+        $applicationSecret = config('helliomessaging.applicationSecret');
+
         if (config('helliomessaging.apiVersion') == 'v1') {
             $this->defaultBody = [
                 'username' => $username,
