@@ -103,9 +103,11 @@ return [
 
 
 ```
-
+## Publish Service provider:
 ```bash
+
 $ php artisan vendor:publish --provider="Hellio\HellioMessaging\HellioMessagingServiceProvider" --tag=helliomessaging
+
 ```
 
 ## Usage:
