@@ -122,6 +122,42 @@ $response = HellioMessaging::verify('233242813656', 1290); // returns true or fa
 }
 ```
 
+### Does not exist
+
+```json
+{
+    "success": true,
+    "data": {
+        "status": false,
+        "message": "OTP does not exist"
+    },
+}
+```
+
+### Not Valid*
+
+```json
+{
+    "success": true,
+    "data": {
+        "status": false,
+        "message": "OTP is not valid"
+    },
+}
+```
+
+### Expired
+
+```json
+{
+    "success": true,
+    "data": {
+        "status": false,
+        "message": "OTP Expired"
+    },
+}
+```
+
 ## Email Validation
 
 -   Validate email addresses to check if they're correct and can recieve emails.

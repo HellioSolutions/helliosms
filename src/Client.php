@@ -29,7 +29,6 @@ class Client
 
     protected $defaultBody;
 
-
     public function __construct()
     {
         $this->baseUrl = config('helliomessaging.baseUrl');
@@ -43,7 +42,7 @@ class Client
         $clientId = config('helliomessaging.clientId');
         $applicationSecret = config('helliomessaging.applicationSecret');
 
-        if (config('helliomessaging.apiVersion') == 'v1') {
+        if (config('helliomessaging.apiVersion') === 'v1') {
             $this->defaultBody = [
                 'username' => $username,
                 'password' => $password,
@@ -53,20 +52,18 @@ class Client
             $this->defaultBody = [
                 'client_id' => $clientId,
                 'authKey' => sha1($clientId . $applicationSecret . date('YmdH')),
-                'sender_id' => $senderId
+                'sender_id' => $senderId,
             ];
         }
 
-        $this->client = new GuzzleClient(
-            [
-                'verify' => false, // disable ssl verification
-                'base_uri' => $this->baseUrl,
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
-                ],
-            ]
-        );
+        $this->client = new GuzzleClient([
+            'verify' => false, // disable ssl verification
+            'base_uri' => $this->baseUrl,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+            ],
+        ]);
     }
 
     /**
@@ -77,11 +74,11 @@ class Client
 
     public function getCustomerBalance()
     {
-       if (config('helliomessaging.apiVersion') == 'v1') {
-              $url = config('helliomessaging.apiVersion') . '/credit-balance';
-         } else {
-                $url = 'v3/customer/balance';
-         }
+        if (config('helliomessaging.apiVersion') === 'v1') {
+            $url = config('helliomessaging.apiVersion') . '/credit-balance';
+        } else {
+            $url = 'v3/customer/balance';
+        }
         return $this->jsonRequest('GET', $url);
     }
 
@@ -90,21 +87,19 @@ class Client
      */
     private function jsonRequest($method, $url, $body = [])
     {
-        return json_decode($this->client->request($method, $url,
-            [
-                'body' => json_encode(array_merge($this->defaultBody, $body))
-            ])->getBody());
+        return json_decode(
+            $this->client
+                ->request($method, $url, [
+                    'body' => json_encode(array_merge($this->defaultBody, $body)),
+                ])
+                ->getBody()
+        );
     }
 
     /**
      * @throws GuzzleException
      */
-    public function sms(
-        $mobile_number,
-        string $message,
-        ?string $senderId = null,
-        string $message_type = MessageType::SMS
-    )
+    public function sms($mobile_number, string $message, ?string $senderId = null, string $message_type = MessageType::SMS)
     {
         if (is_array($mobile_number)) {
             $mobile_number = implode($mobile_number, ",");
@@ -113,25 +108,22 @@ class Client
             'msisdn' => $mobile_number,
             'message' => $message,
             'message_type' => $message_type,
-            'sender_id' => $senderId ?? config('helliomessaging.defaultSender')
+            'sender_id' => $senderId ?? config('helliomessaging.defaultSender'),
         ];
-        return $this->jsonRequest('POST', '/v2/sms', $data);
+
+        if (config('helliomessaging.apiVersion') === 'v3') {
+            $url = config('helliomessaging.apiVersion') . '/channels/sms/v3/send';
+        } else {
+            $url = config('helliomessaging.apiVersion') . '/sms';
+        }
+        return $this->jsonRequest('POST', $url, $data);
     }
 
     /**
      * @throws GuzzleException
      */
-    public function otp(
-        string $mobile_number,
-        string $timeout,
-        ?string $senderId = null,
-        string $token_length,
-        string $message,
-        string $message_type = MessageType::SMS,
-        string $recipient_email = null
-    )
+    public function otp(string $mobile_number, string $timeout, ?string $senderId = null, string $token_length, string $message, string $message_type = MessageType::SMS, string $recipient_email = null)
     {
-
         $data = [
             'msisdn' => $mobile_number,
             'timeout' => $timeout,
@@ -139,19 +131,40 @@ class Client
             'message' => $message,
             'sender_id' => $senderId ?? config('helliomessaging.defaultSender'),
             'message_type' => $message_type,
-            'recipient_email' => $recipient_email
+            'recipient_email' => $recipient_email,
         ];
+        if (config('helliomessaging.apiVersion') === 'v3') {
+            $url = config('helliomessaging.apiVersion') . '/channels/2fa/v3/request';
+        } else {
+            $url = config('helliomessaging.apiVersion') . '/otp/send';
+        }
 
-        return $this->jsonRequest('POST', '/channels/2fa/v3/request', $data);
+        return $this->jsonRequest('POST', $url, $data);
     }
 
     /**
      * @throws GuzzleException
      */
-    public function emailvalidator(
-         $email,
-        string $label = null
-    )
+    public function verifyOtp(string $mobile_number, string $token)
+    {
+        $data = [
+            'mobile_number' => $mobile_number,
+            'token' => $token,
+        ];
+
+        if (config('helliomessaging.apiVersion') === 'v3') {
+            $url = config('helliomessaging.apiVersion') . '/channels/2fa/v3/verify';
+        } else {
+            $url = config('helliomessaging.apiVersion') . '/otp/verify';
+        }
+
+        return $this->jsonRequest('POST', 'channels/2fa/v3/verify', $data);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function emailvalidator($email, string $label = null)
     {
         if (is_array($email)) {
             $email = implode($email, ",");
@@ -162,24 +175,6 @@ class Client
             'label' => $label,
         ];
 
-
         return $this->jsonRequest('POST', '/channels/email/v3/validator', $data);
-    }
-
-    /**
-     * @throws GuzzleException
-     */
-    public function verifyOtp(
-        string $mobile_number,
-        string $token
-    )
-    {
-
-        $data = [
-            'mobile_number' => $mobile_number,
-            'token' => $token,
-        ];
-
-        return $this->jsonRequest('POST', 'channels/2fa/v3/verify', $data);
     }
 }
