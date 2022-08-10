@@ -35,4 +35,18 @@ return [
 
     'apiVersion' => 'v1',
 
+    /**
+     * Default username
+     *
+     */
+    'username' => getenv('HELLIO_MESSAGING_USERNAME'),
+
+
+    /**
+     * Default password
+     *
+     */
+
+    'password' => getenv('HELLIO_MESSAGING_PASSWORD'),
+
 ];
