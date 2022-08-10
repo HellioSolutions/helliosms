@@ -2,13 +2,13 @@
 
 namespace Hellio\HellioMessaging\Test;
 
-use Mockery;
 use Hellio\HellioMessaging\Client;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Notifications\Notification;
+use Hellio\HellioMessaging\Exceptions\CouldNotSendNotification;
 use Hellio\HellioMessaging\HellioMessagingChannel;
 use Hellio\HellioMessaging\HellioMessagingMessage;
-use Hellio\HellioMessaging\Exceptions\CouldNotSendNotification;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
+use Mockery;
 
 class HellioMessagingChannelTest extends TestCase
 {

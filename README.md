@@ -3,7 +3,8 @@
 ### About
 
 Official Laravel package that integrates with [Hellio Messaging](https://helliomessaging.com)'s fleets of APIs nicely
-with [Laravel](https://laravel.com/) 5+ adding support for **SMS**, **Notification**, **Voice SMS**, **OTP Codes**, **OTP Verification**, **Email Validator Service** & **Laravel Validator** as well.
+with [Laravel](https://laravel.com/) 5+ adding support for **SMS**, **Notification**, **Voice SMS**, **OTP Codes**, **
+OTP Verification**, **Email Validator Service** & **Laravel Validator** as well.
 
 ### Registration
 
@@ -37,9 +38,71 @@ Put the credentials and preferences in ENV with the keys:
 
 `HELLIO_MESSAGING_CLIENT_ID`\
 `HELLIO_MESSAGING_APPLICATION_SECRET`\
-`HELLIO_MESSAGING_DEFAULT_SENDER`
+`HELLIO_MESSAGING_DEFAULT_SENDER`\
+`HELLIO_MESSAGING_API_VERSION`
 
-If you want to customize this, publish the default configuration which will create a config file `config/helliomessaging.php`.
+If you want to customize this, publish the default configuration which will create a config
+file `config/helliomessaging.php`.
+
+```php
+
+### Configuration Structure
+The configuration looks like this:
+<?php
+
+return [
+
+    /**
+     * Live API url
+     *
+     */
+    'baseUrl' => 'https://api.helliomessaging.com/',
+
+    /**
+     * Client Id
+     *
+     */
+    'clientId' => getenv('HELLIO_MESSAGING_CLIENT_ID'),
+
+    /**
+     * Application Secret
+     *
+     */
+    'applicationSecret' => getenv('HELLIO_MESSAGING_APPLICATION_SECRET'),
+
+
+    /**
+     * Default Sender Id
+     *
+     */
+    'defaultSender' => getenv('HELLIO_MESSAGING_DEFAULT_SENDER'),
+
+
+    /**
+     * Default API version
+     *
+     */
+
+    'apiVersion' => getenv('HELLIO_MESSAGING_API_VERSION'),
+
+    /**
+     * Default username
+     *
+     */
+    'username' => getenv('HELLIO_MESSAGING_USERNAME'),
+
+
+    /**
+     * Default password
+     *
+     */
+
+    'password' => getenv('HELLIO_MESSAGING_PASSWORD'),
+
+];
+
+
+```
 
 ```bash
 $ php artisan vendor:publish --provider="Hellio\HellioMessaging\HellioMessagingServiceProvider" --tag=helliomessaging
@@ -54,12 +117,13 @@ Open your .env file and add your api key like so:
 HELLIO_MESSAGING_CLIENT_ID=xxxxxxxx
 HELLIO_MESSAGING_APPLICATION_SECRET=xxxxxxxx
 HELLIO_MESSAGING_DEFAULT_SENDER=YourSenderName //Max of 11 characters
+HELLIO_MESSAGING_API_VERSION= // From v1 to v3. Kindly check the documentation for the appropriate version you wish to use
 
 ```
 
 ### Basic
 
--   Send an SMS to one or more mobile numbers.
+- Send an SMS to one or more mobile numbers.
 
 ```php
 <?php
@@ -86,7 +150,7 @@ $response = HellioMessaging::sms(null, [
 }
 ```
 
--   Send OTP to a mobile number.
+- Send OTP to a mobile number.
 
 ```php
 <?php
@@ -98,7 +162,7 @@ $response = HellioMessaging::otp('233242813656', 'HellioSMS', '4', '10');
 $response = HellioMessaging::otp('233242813656', 'HellioSMS', '4', '10', '##OTP## is your OTP, Please dont share it with anyone.');
 ```
 
--   Verify OTP sent to a mobile number.
+- Verify OTP sent to a mobile number.
 
 ```php
 <?php
@@ -160,7 +224,7 @@ $response = HellioMessaging::verify('233242813656', 1290); // returns true or fa
 
 ## Email Validation
 
--   Validate email addresses to check if they're correct and can recieve emails.
+- Validate email addresses to check if they're correct and can recieve emails.
 
 ```php
 <?php
@@ -172,7 +236,7 @@ $response = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@do
 
 ## Hellio Account Balance
 
--   Check your Hellio Messaging account balance with ease.
+- Check your Hellio Messaging account balance with ease.
 
 ```php
 <?php
@@ -272,7 +336,8 @@ $ composer test
 
 ## Security
 
-If you discover any security related issues, please email support@helliomessaging.com instead of using the issue tracker.
+If you discover any security related issues, please email support@helliomessaging.com instead of using the issue
+tracker.
 
 ## Contributing
 

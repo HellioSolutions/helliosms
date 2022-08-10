@@ -2,7 +2,7 @@
 
 return [
 
-   /**
+    /**
      * Live API url
      *
      */
@@ -33,7 +33,7 @@ return [
      *
      */
 
-    'apiVersion' => 'v1',
+    'apiVersion' => getenv('HELLIO_MESSAGING_API_VERSION'),
 
     /**
      * Default username

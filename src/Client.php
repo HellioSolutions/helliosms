@@ -122,7 +122,7 @@ class Client
     /**
      * @throws GuzzleException
      */
-    public function otp(string $mobile_number, string $timeout, ?string $senderId = null, string $token_length, string $message, string $message_type = MessageType::SMS, string $recipient_email = null)
+    public function otp(string $mobile_number, string $timeout, string $senderId, string $token_length, string $message, string $message_type = MessageType::SMS, string $recipient_email = null)
     {
         $data = [
             'msisdn' => $mobile_number,

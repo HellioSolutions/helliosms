@@ -2,13 +2,11 @@
 
 namespace Hellio\HellioMessaging;
 
-use Illuminate\Support\Arr;
-use Hellio\HellioMessaging\Channels;
-use Hellio\HellioMessaging\Client;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Notification;
 use Hellio\HellioMessaging\Channels\HellioMessagingChannel;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
 
 class HellioMessagingServiceProvider extends ServiceProvider
 {
