@@ -235,6 +235,19 @@ $response = HellioMessaging::emailvalidator('someemail@domain.com', 'Marketing l
 $response = HellioMessaging::emailvalidator(['someemail@domain.com', 'support@domain.com'], 'Marketing leads'); // Validate multiple emails at once
 ```
 
+
+## Number Lookup Service
+
+- Check the status of a mobile number before sending your bulk sms campaign. This ensures you're sending messages to numbers that are active and recipients can actually recieve your messages.
+
+```php
+<?php
+
+$response = HellioMessaging::numberLookup('233242813656');
+
+$response = HellioMessaging::numberLookup(['233242813656', '233591451609']); // Validate multiple mobile numbers at once
+```
+
 ## Hellio Account Balance
 
 - Check your Hellio Messaging account balance with ease.

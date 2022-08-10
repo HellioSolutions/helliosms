@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string|false emailvalidator(?array $email, string $label = null)
  * @method static string|false balance()
  * @method static bool verify(string $mobile_number, string $token)
+ * @method static bool numberLookup(string $mobile_number)
  */
 class HellioMessaging extends Facade
 {

@@ -126,8 +126,8 @@ class Client
     {
         $data = [
             'msisdn' => $mobile_number,
-            'timeout' => $timeout,
-            'token_length' => $token_length,
+            'timeout' => $timeout ?? config('helliomessaging.otpTimeout'),
+            'token_length' => $token_length ?? config('helliomessaging.tokenLength'),
             'message' => $message,
             'sender_id' => $senderId ?? config('helliomessaging.defaultSender'),
             'message_type' => $message_type,
@@ -139,6 +139,23 @@ class Client
             $url = config('helliomessaging.apiVersion') . '/otp/send';
         }
 
+        return $this->jsonRequest('POST', $url, $data);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+
+    public function numberLookup(string $mobile_number)
+    {
+        $data = [
+            'msisdn' => $mobile_number,
+        ];
+        if (config('helliomessaging.apiVersion') === 'v3') {
+            $url = config('helliomessaging.apiVersion') . '/channels/lookup/v3/number';
+        } else {
+            $url = config('helliomessaging.apiVersion') . '/lookup/number';
+        }
         return $this->jsonRequest('POST', $url, $data);
     }
 
